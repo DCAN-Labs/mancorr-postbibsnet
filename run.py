@@ -56,7 +56,6 @@ def main():
             prebibsnet_work_folder= os.path.join(input_folder, f'prebibsnet/{temp_sub}/{temp_ses}')
             bibsnet_work_folder= os.path.join(input_folder, f'bibsnet/{temp_sub}/{temp_ses}')
             postbibsnet_work_folder=os.path.join(session_input_derivatives_path, f'postbibsnet/{temp_sub}/{temp_ses}')
-            derivatives_folder=session_derivatives_path
 
             #specify pathname for intermediate brainmask derived from the segmentation prior to transformation into native space
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
