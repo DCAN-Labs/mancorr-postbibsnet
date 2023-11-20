@@ -3,6 +3,7 @@
 FROM nipype/nipype:py38
 
 #Make a directory to store any of the code we need
+USER root
 RUN mkdir /mancorr_code
 
 #Add the run.py script and readme, but also rename the run.py script
