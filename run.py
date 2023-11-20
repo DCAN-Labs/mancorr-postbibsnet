@@ -54,9 +54,8 @@ def main():
             postbibsnet_work_folder=os.path.join(input_folder, f'postbibsnet/{temp_sub}/{temp_ses}')
             derivatives_folder=session_derivatives_path
 
+            #specify pathname for intermediate brainmask derived from the segmentation prior to transformation into native space
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
-            tmp_aseg_mat=f'{temp_sub}_{temp_ses}_optimal_resized_flirt.mat'
-            tmp_brainmask_mat=f'{temp_sub}_{temp_ses}_brainmask_MNIspace_flirt.mat'
 
             # copy jsons to session_derivatives folder
             jsons=glob.glob(f'{derivatives_work_folder}/*json')
@@ -90,6 +89,7 @@ def main():
                                     in_file=aseg,
                                     in_matrix_file=inv_mat,
                                     out_file=aseg_deriv)
+                    flt.outputs.no_save_mats=True
                     flt.run()
 
                     #apply inverse transform to brainmask to get into native space
@@ -102,6 +102,11 @@ def main():
                     flt.run()
             
             os.remove(tmp_brainmask_MNIspace)
+
+            # FLIRT saves a separate transformation matrix applied to generate the output file even when an external transform is                  # supplied. These files are not needed, however, so define the automated filepaths created and remove them.
+            tmp_aseg_mat=f'{temp_sub}_{temp_ses}_optimal_resized_flirt.mat'
+            tmp_brainmask_mat=f'{temp_sub}_{temp_ses}_brainmask_MNIspace_flirt.mat'
+            
             os.remove(tmp_aseg_mat)
             os.remove(tmp_brainmask_mat)
             
