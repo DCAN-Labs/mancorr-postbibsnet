@@ -55,6 +55,8 @@ def main():
             derivatives_folder=session_derivatives_path
 
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
+            tmp_aseg_mat=f'{temp_sub}_{temp_ses}_optimal_resized_flirt.mat'
+            tmp_brainmask_mat=f'{temp_sub}_{temp_ses}_brainmask_MNIspace_flirt.mat'
 
             # copy jsons to session_derivatives folder
             jsons=glob.glob(f'{derivatives_work_folder}/*json')
@@ -100,6 +102,8 @@ def main():
                     flt.run()
             
             os.remove(tmp_brainmask_MNIspace)
+            os.remove(tmp_aseg_mat)
+            os.remove(tmp_brainmask_mat)
             
 if __name__ == "__main__":
     main()
