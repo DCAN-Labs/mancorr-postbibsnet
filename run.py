@@ -13,6 +13,7 @@ def main():
     args = parser.parse_args()
 
     input_folder = os.path.abspath(args.input_folder)
+    input_bibsnet_folder = os.path.join(input_folder, 'bibsnet')
     #output_folder = os.path.abspath(args.output_folder)
     output_bibsnet_folder = os.path.join(os.path.abspath(args.output_folder), 'bibsnet')
     original_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
@@ -32,7 +33,7 @@ def main():
             else:
                 participants.append(temp_participant)
     else:
-        os.chdir(os.path.join(input_folder, 'bibsnet'))
+        os.chdir(input_bibsnet_folder)
         participants = glob.glob('sub-*')
 
     for temp_sub in participants:
