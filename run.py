@@ -1,3 +1,4 @@
+#/opt/miniconda-latest/envs/neuro/bin/python
 import os, glob
 import shutil
 import argparse 
@@ -6,13 +7,15 @@ from nipype.interfaces import fsl
 def main():
     parser = argparse.ArgumentParser(description="psuedo postbibsnet")
     parser.add_argument("input_folder", help="path to folder that contains BIBSNet work folders")
-    parser.add_argument("derivatives_folder", help="path to folder that contains study-wide BIBSNet derivatives folders")
+    parser.add_argument("output_folder", help="path to output folder that will contain study-wide BIBSNet derivatives folders")
     parser.add_argument('--participant_label', '--participant-label', help="The name/label of the subject to be processed (i.e. sub-01 or 01)", type=str)
     parser.add_argument('-w', '--w', help='Optional working for current pipeline where intermediate results are stored.')
     args = parser.parse_args()
 
     input_folder = os.path.abspath(args.input_folder)
-    derivatives_folder = os.path.abspath(args.derivatives_folder)
+    #output_folder = os.path.abspath(args.output_folder)
+    output_bibsnet_folder = os.path.join(os.path.abspath(args.output_folder), 'bibsnet')
+    original_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
 
     if args.w:
         work_folder = os.path.abspath(args.w)
@@ -37,29 +40,29 @@ def main():
         sessions = glob.glob('ses*')
 
         for temp_ses in sessions:
-            session_derivatives_path = os.path.join(derivatives_folder, temp_sub, temp_ses, 'anat')
-            if os.path.exists(session_derivatives_path) == False:
-                os.makedirs(session_derivatives_path)
+            session_input_derivatives_path = os.path.join(input_bibsnet_folder, temp_sub, temp_ses, 'anat')
+            session_output_derivatives_path = os.path.join(output_bibsnet_folder, temp_sub, temp_ses, 'anat')
+            if os.path.exists(session_output_derivatives_path) == False:
+                os.makedirs(session_output_derivatives_path)
 
             #copy dataset_description.json to output derivatives folder if it doesn't exist already
-            dataset_description_json_src=os.path.join(input_folder, 'derivatives/bibsnet/dataset_description.json')
-            dataset_description_json_dest=os.path.join(derivatives_folder, 'dataset_description.json')
-
+            dataset_description_json_src=os.path.join(original_bibsnet_folder, 'dataset_description.json')
+            dataset_description_json_dest=os.path.join(output_bibsnet_folder, 'dataset_description.json')
             if not os.path.exists(dataset_description_json_dest):
                 shutil.copy(dataset_description_json_src, dataset_description_json_dest)
 
             derivatives_work_folder=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}/anat')
             prebibsnet_work_folder= os.path.join(input_folder, f'prebibsnet/{temp_sub}/{temp_ses}')
             bibsnet_work_folder= os.path.join(input_folder, f'bibsnet/{temp_sub}/{temp_ses}')
-            postbibsnet_work_folder=os.path.join(input_folder, f'postbibsnet/{temp_sub}/{temp_ses}')
+            postbibsnet_work_folder=os.path.join(session_input_derivatives_path, f'postbibsnet/{temp_sub}/{temp_ses}')
             derivatives_folder=session_derivatives_path
 
             #specify pathname for intermediate brainmask derived from the segmentation prior to transformation into native space
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
 
             # copy jsons to session_derivatives folder
-            jsons=glob.glob(f'{derivatives_work_folder}/*json')
-            [shutil.copy(json, session_derivatives_path) for json in jsons]
+            #jsons=glob.glob(f'{session_input_derivatives_path}/*json')
+            #[shutil.copy(json, session_output_derivatives_path) for json in jsons]
 
             # create aseg-derived mask
             aseg= os.path.join(bibsnet_work_folder, f'output/{temp_sub}_{temp_ses}_optimal_resized.nii.gz')
@@ -72,9 +75,9 @@ def main():
             # Register aseg and mask back into native space and replace derivatives
             t_mod = ['T1w', 'T2w']
             for t in t_mod:
-                inv_mat=f'{postbibsnet_work_folder}/chirality_correction/seg_reg_to_{t}_native.mat'
-                aseg_deriv=f'{derivatives_folder}/{temp_sub}_{temp_ses}_space-{t}_desc-aseg_dseg.nii.gz'
-                brainmask_deriv=f'{derivatives_folder}/{temp_sub}_{temp_ses}_space-{t}_desc-brain_mask.nii.gz'
+                inv_mat=f'{postbibsnet_work_folder}/chirality_correction/seg_reg_to_{t}_native.mat' #exists
+                aseg_deriv=f'{session_input_derivatives_path}/{temp_sub}_{temp_ses}_space-{t}_desc-aseg_dseg.nii.gz' #should exist 
+                brainmask_deriv=f'{session_input_derivatives_path}/{temp_sub}_{temp_ses}_space-{t}_desc-brain_mask.nii.gz' #should exist
 
                 if t == 'T1w':
                     native_anat=f'{prebibsnet_work_folder}/averaged/{temp_sub}_{temp_ses}_0000.nii.gz'
@@ -109,6 +112,9 @@ def main():
             
             os.remove(tmp_aseg_mat)
             os.remove(tmp_brainmask_mat)
+
+            #Copy to the output derivatives path
+            shutil.copytree(session_input_derivatives_path, session_output_derivatives_path)
             
 if __name__ == "__main__":
     main()
