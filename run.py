@@ -1,4 +1,4 @@
-#/opt/miniconda-latest/envs/neuro/bin/python
+#!/opt/miniconda-latest/envs/neuro/bin/python
 import os, glob
 import shutil
 import argparse 
