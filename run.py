@@ -1,4 +1,5 @@
 import os, glob
+import shutil
 import argparse 
 from nipype.interfaces import fsl
 
@@ -36,10 +37,21 @@ def main():
         sessions = glob.glob('ses*')
 
         for temp_ses in sessions:
-
             session_derivatives_path = os.path.join(derivatives_folder, temp_sub, temp_ses, 'anat')
             if os.path.exists(session_derivatives_path) == False:
                 os.makedirs(session_derivatives_path)
+        
+            # copy jsons to session_derivatives folder
+            sesion_orig_derivs=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}', 'anat')
+            jsons=glob.glob(f'{sesion_orig_derivs}/*json')
+            [shutil.copy(json, session_derivatives_path) for json in jsons]
+
+            #copy dataset_description.json to output derivatives folder if it doesn't exist already
+            dataset_description_json_src=os.path.join(input_folder, 'derivatives/bibsnet/dataset_description.json')
+            dataset_description_json_dest=os.path.join(derivatives_folder, 'dataset_description.json')
+
+            if not os.path.exists(dataset_description_json_dest):
+                shutil.copy(dataset_description_json_src, dataset_description_json_dest)
 
             prebibsnet_work_folder= os.path.join(input_folder, f'prebibsnet/{temp_sub}/{temp_ses}')
             bibsnet_work_folder= os.path.join(input_folder, f'bibsnet/{temp_sub}/{temp_ses}')
