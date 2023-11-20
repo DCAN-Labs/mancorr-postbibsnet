@@ -40,11 +40,6 @@ def main():
             session_derivatives_path = os.path.join(derivatives_folder, temp_sub, temp_ses, 'anat')
             if os.path.exists(session_derivatives_path) == False:
                 os.makedirs(session_derivatives_path)
-        
-            # copy jsons to session_derivatives folder
-            sesion_orig_derivs=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}', 'anat')
-            jsons=glob.glob(f'{sesion_orig_derivs}/*json')
-            [shutil.copy(json, session_derivatives_path) for json in jsons]
 
             #copy dataset_description.json to output derivatives folder if it doesn't exist already
             dataset_description_json_src=os.path.join(input_folder, 'derivatives/bibsnet/dataset_description.json')
@@ -53,12 +48,17 @@ def main():
             if not os.path.exists(dataset_description_json_dest):
                 shutil.copy(dataset_description_json_src, dataset_description_json_dest)
 
+            derivatives_work_folder=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}/anat')
             prebibsnet_work_folder= os.path.join(input_folder, f'prebibsnet/{temp_sub}/{temp_ses}')
             bibsnet_work_folder= os.path.join(input_folder, f'bibsnet/{temp_sub}/{temp_ses}')
             postbibsnet_work_folder=os.path.join(input_folder, f'postbibsnet/{temp_sub}/{temp_ses}')
             derivatives_folder=session_derivatives_path
 
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
+
+            # copy jsons to session_derivatives folder
+            jsons=glob.glob(f'{derivatives_work_folder}/*json')
+            [shutil.copy(json, session_derivatives_path) for json in jsons]
 
             # create aseg-derived mask
             aseg= os.path.join(bibsnet_work_folder, f'output/{temp_sub}_{temp_ses}_optimal_resized.nii.gz')
