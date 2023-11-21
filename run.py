@@ -86,10 +86,16 @@ def main():
 
                 if os.path.exists(native_anat):
                     #apply inverse transform to bibsnet output segmentation to get into native space
+                    print(f'ASEG: {aseg}')
+                    print(f'Native Anat: {native_anat}')
+                    print(f'INV_MAT: {inv_mat}')
+                    print(f'aseg_deriv: {aseg_deriv}')
                     command = f'flirt -in {aseg} -ref {native_anat} -applyxfm -init {inv_mat} '
                     command += f'-interp nearestneighbour -out {aseg_deriv}'
                     os.system(command)
 
+                    print(f'tmp_brainmask_mni_space: {tmp_brainmask_MNIspace}')
+                    print(f'brainmask_deriv: {brainmask_deriv}')
                     command = f'flirt -in {tmp_brainmask_MNIspace} -ref {native_anat} -applyxfm -init {inv_mat} '
                     command += f'-interp nearestneighbour -out {brainmask_deriv}'
                     os.system(command) 
@@ -118,8 +124,8 @@ def main():
             tmp_aseg_mat=f'{temp_sub}_{temp_ses}_optimal_resized_flirt.mat'
             tmp_brainmask_mat=f'{temp_sub}_{temp_ses}_brainmask_MNIspace_flirt.mat'
             
-            os.remove(tmp_aseg_mat)
-            os.remove(tmp_brainmask_mat)
+            #os.remove(tmp_aseg_mat)
+            #os.remove(tmp_brainmask_mat)
 
             #Copy to the output derivatives path
             shutil.copytree(session_input_derivatives_path, session_output_derivatives_path)
