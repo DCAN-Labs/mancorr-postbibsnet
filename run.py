@@ -12,11 +12,13 @@ def main():
     parser.add_argument('-w', '--w', help='Optional working for current pipeline where intermediate results are stored.')
     args = parser.parse_args()
 
+
     input_folder = os.path.abspath(args.input_folder)
     input_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
     output_bibsnet_folder = os.path.join(os.path.abspath(args.output_folder), 'bibsnet')
     original_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
 
+    #Set work directory
     if args.w:
         work_folder = os.path.abspath(args.w)
         if os.path.exists(work_folder) == False:
