@@ -41,11 +41,11 @@ def main():
         sessions = glob.glob('ses*')
 
         for temp_ses in sessions:
-            session_input_derivatives_partial_path = os.path.join(input_bibsnet_folder, temp_sub, temp_ses)
-            session_input_derivatives_path = os.path.join(session_input_derivatives_partial_path, 'anat')
-            session_output_derivatives_path = os.path.join(output_bibsnet_folder, temp_sub, temp_ses, 'anat')
-            if os.path.exists(session_input_derivatives_partial_path) == False:
-                os.makedirs(session_input_derivatives_partial_path)
+            session_input_derivatives_path = os.path.join(input_bibsnet_folder, temp_sub, temp_ses, 'anat')
+            session_output_derivatives_path_partial = os.path.join(output_bibsnet_folder, temp_sub, temp_ses)
+            session_output_derivatives_path = os.path.join(session_output_derivatives_path_partial, 'anat')
+            if os.path.exists(session_output_derivatives_path) == False:
+                os.makedirs(session_output_derivatives_path)
 
             #copy dataset_description.json to output derivatives folder if it doesn't exist already
             dataset_description_json_src=os.path.join(original_bibsnet_folder, 'dataset_description.json')
