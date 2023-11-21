@@ -63,10 +63,6 @@ def main():
             #specify pathname for intermediate brainmask derived from the segmentation prior to transformation into native space
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
 
-            # copy jsons to session_derivatives folder
-            #jsons=glob.glob(f'{session_input_derivatives_path}/*json')
-            #[shutil.copy(json, session_output_derivatives_path) for json in jsons]
-
             # create aseg-derived mask
             aseg= os.path.join(bibsnet_work_folder, f'output/{temp_sub}_{temp_ses}_optimal_resized.nii.gz')
             maths = fsl.ImageMaths(in_file=aseg,
