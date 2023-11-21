@@ -13,7 +13,7 @@ def main():
     args = parser.parse_args()
 
     input_folder = os.path.abspath(args.input_folder)
-    input_bibsnet_folder = os.path.join(input_folder, 'bibsnet')
+    input_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
     #output_folder = os.path.abspath(args.output_folder)
     output_bibsnet_folder = os.path.join(os.path.abspath(args.output_folder), 'bibsnet')
     original_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
@@ -52,10 +52,10 @@ def main():
             if not os.path.exists(dataset_description_json_dest):
                 shutil.copy(dataset_description_json_src, dataset_description_json_dest)
 
-            derivatives_work_folder=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}/anat')
+            #derivatives_work_folder=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}/anat')
             prebibsnet_work_folder= os.path.join(input_folder, f'prebibsnet/{temp_sub}/{temp_ses}')
             bibsnet_work_folder= os.path.join(input_folder, f'bibsnet/{temp_sub}/{temp_ses}')
-            postbibsnet_work_folder=os.path.join(session_input_derivatives_path, f'postbibsnet/{temp_sub}/{temp_ses}')
+            postbibsnet_work_folder=os.path.join(input_folder, f'postbibsnet/{temp_sub}/{temp_ses}')
 
             #specify pathname for intermediate brainmask derived from the segmentation prior to transformation into native space
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
