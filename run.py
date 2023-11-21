@@ -41,10 +41,11 @@ def main():
         sessions = glob.glob('ses*')
 
         for temp_ses in sessions:
-            session_input_derivatives_path = os.path.join(input_bibsnet_folder, temp_sub, temp_ses, 'anat')
+            session_input_derivatives_partial_path = os.path.join(input_bibsnet_folder, temp_sub, temp_ses)
+            session_input_derivatives_path = os.path.join(session_input_derivatives_partial_path, 'anat')
             session_output_derivatives_path = os.path.join(output_bibsnet_folder, temp_sub, temp_ses, 'anat')
             if os.path.exists(session_output_derivatives_path) == False:
-                os.makedirs(session_output_derivatives_path)
+                os.makedirs(session_input_derivatives_partial_path)
 
             #copy dataset_description.json to output derivatives folder if it doesn't exist already
             dataset_description_json_src=os.path.join(original_bibsnet_folder, 'dataset_description.json')
@@ -86,16 +87,16 @@ def main():
 
                 if os.path.exists(native_anat):
                     #apply inverse transform to bibsnet output segmentation to get into native space
-                    print(f'ASEG: {aseg}')
-                    print(f'Native Anat: {native_anat}')
-                    print(f'INV_MAT: {inv_mat}')
-                    print(f'aseg_deriv: {aseg_deriv}')
+                    #print(f'ASEG: {aseg}')
+                    #print(f'Native Anat: {native_anat}')
+                    #print(f'INV_MAT: {inv_mat}')
+                    #print(f'aseg_deriv: {aseg_deriv}')
                     command = f'flirt -in {aseg} -ref {native_anat} -applyxfm -init {inv_mat} '
                     command += f'-interp nearestneighbour -out {aseg_deriv}'
                     os.system(command)
 
-                    print(f'tmp_brainmask_mni_space: {tmp_brainmask_MNIspace}')
-                    print(f'brainmask_deriv: {brainmask_deriv}')
+                    #print(f'tmp_brainmask_mni_space: {tmp_brainmask_MNIspace}')
+                    #print(f'brainmask_deriv: {brainmask_deriv}')
                     command = f'flirt -in {tmp_brainmask_MNIspace} -ref {native_anat} -applyxfm -init {inv_mat} '
                     command += f'-interp nearestneighbour -out {brainmask_deriv}'
                     os.system(command) 
