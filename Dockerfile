@@ -16,8 +16,8 @@ ENV FSLDIR=/usr/share/fsl/5.0
 ENV FSLBROWSER=/etc/alternatives/x-www-browser
 ENV FSLTCLSH=/usr/bin/tclsh
 ENV FSLMULTIFILEQUIT=TRUE
-
-#ENV 
+ENV FSLOUTPUTTYPE=NIFTI_GZ
+ENV PATH=/common/software/install/migrated/anaconda/python3-2020.07-mamba/bin:/opt/miniconda-latest/envs/neuro/bin:/opt/miniconda-latest/condabin:/usr/lib/fsl/5.0:/opt/freesurfer-6.0.0-min/bin:/opt/freesurfer-6.0.0-min/fsfast/bin:/opt/freesurfer-6.0.0-min/tktools:/opt/freesurfer-6.0.0-min/mni/bin:/opt/miniconda-latest/bin:/usr/lib/ants:/opt/dcm2niix-v1.0.20190902/bin:/opt/freesurfer-6.0.0-min/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/afni/bin
 
 #This entrypoint assumes that the original run.py
 #script had a header that points to the containers
