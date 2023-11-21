@@ -89,16 +89,10 @@ def main():
 
                 if os.path.exists(native_anat):
                     #apply inverse transform to bibsnet output segmentation to get into native space
-                    #print(f'ASEG: {aseg}')
-                    #print(f'Native Anat: {native_anat}')
-                    #print(f'INV_MAT: {inv_mat}')
-                    #print(f'aseg_deriv: {aseg_deriv}')
                     command = f'flirt -in {aseg} -ref {native_anat} -applyxfm -init {inv_mat} '
                     command += f'-interp nearestneighbour -out {aseg_deriv}'
                     os.system(command)
 
-                    #print(f'tmp_brainmask_mni_space: {tmp_brainmask_MNIspace}')
-                    #print(f'brainmask_deriv: {brainmask_deriv}')
                     command = f'flirt -in {tmp_brainmask_MNIspace} -ref {native_anat} -applyxfm -init {inv_mat} '
                     command += f'-interp nearestneighbour -out {brainmask_deriv}'
                     os.system(command) 
