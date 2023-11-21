@@ -1,0 +1,118 @@
+CONDA_SHLVL=1
+OS=Linux
+LC_ALL=en_US.UTF-8
+LD_LIBRARY_PATH=/usr/lib/fsl/5.0:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/opt/matlabmcr-2010a/v713/runtime/glnxa64:/opt/matlabmcr-2010a/v713/bin/glnxa64:/opt/matlabmcr-2010a/v713/sys/os/glnxa64:/opt/matlabmcr-2010a/v713/extern/bin/glnxa64:/.singularity.d/libs
+CONDA_EXE=/opt/miniconda-latest/bin/conda
+SUBJECTS_DIR=/opt/freesurfer-6.0.0-min/subjects
+FSLWISH=/usr/bin/wish
+FSLDIR=/usr/share/fsl/5.0
+POSSUMDIR=/usr/share/fsl/5.0
+svinogra_shared=/home/svinogra/shared/
+LANG=en_US.UTF-8
+MNI_DIR=/opt/freesurfer-6.0.0-min/mni
+APPTAINER_COMMAND=run
+FSFAST_HOME=/opt/freesurfer-6.0.0-min/fsfast
+FSLMACHINELIST=
+APPTAINER_CONTAINER=/home/midb-ig/shared/containers/leex6144/nipype_py38.sif
+FSLBROWSER=/etc/alternatives/x-www-browser
+GSETTINGS_SCHEMA_DIR_CONDA_BACKUP=
+MATLABCMD=/opt/matlabmcr-2010a/v713/toolbox/matlab
+CONDA_PREFIX=/opt/miniconda-latest/envs/neuro
+CONDA_DIR=/opt/miniconda-latest
+loris=/home/midb-ig/shared/HBCD/s3cfgs/msi_loris_hbcd_midb_s3.s3cfg
+FSF_OUTPUT_FORMAT=nii.gz
+FSLTCLSH=/usr/bin/tclsh
+FSLREMOTECALL=
+_CE_M=
+text=/panfs/roc/msisoft/textadept/10.0/textadept
+USER=leex6144
+LOCAL_DIR=/opt/freesurfer-6.0.0-min/local
+umii_shared=/home/umii/shared/
+SINGULARITY_CONTAINER=/home/midb-ig/shared/containers/leex6144/nipype_py38.sif
+FMRI_ANALYSIS_DIR=/opt/freesurfer-6.0.0-min/fsfast
+PWD=/home/faird/shared/projects/HBCD_MIDB_IG/bibsnet_mancorr
+FUNCTIONALS_DIR=/opt/freesurfer-6.0.0-min/sessions
+HOME=/home/umii/leex6144
+vm=ssh umii-midbig-dev-docker.oit.umn.edu
+FREESURFER_HOME=/opt/freesurfer-6.0.0-min
+CONDA_PYTHON_EXE=/opt/miniconda-latest/bin/python
+APPTAINER_BIND=
+FSLLOCKDIR=
+AFNI_MODELPATH=/usr/lib/afni/models
+_CE_CONDA=
+GSETTINGS_SCHEMA_DIR=/opt/miniconda-latest/envs/neuro/share/glib-2.0/schemas
+MKL_NUM_THREADS=1
+APPTAINER_NAME=nipype_py38.sif
+midb_ig_shared=/home/midb-ig/shared/
+AFNI_PLUGINPATH=/usr/lib/afni/plugins
+FORCE_SPMMCR=1
+MNI_PERL5LIB=/opt/freesurfer-6.0.0-min/mni/share/perl5
+sand=/home/midb-ig/shared/HBCD/s3cfgs/msi_sandbox_hbcd_midb_s3.s3cfg
+CONDA_PROMPT_MODIFIER=(neuro) 
+SINGULARITY_ENVIRONMENT=/.singularity.d/env/91-environment.sh
+ND_ENTRYPOINT=/neurodocker/startup.sh
+TERM=xterm-256color
+SINGULARITY_NAME=nipype_py38.sif
+AFNI_IMSAVE_WARNINGS=NO
+MINC_BIN_DIR=/opt/freesurfer-6.0.0-min/mni/bin
+FIX_VERTEX_AREA=
+ANTSPATH=/usr/lib/ants
+PERL5LIB=/opt/freesurfer-6.0.0-min/mni/share/perl5
+AFNI_TTATLAS_DATASET=/usr/share/afni/atlases
+ucsd=/home/midb-ig/shared/HBCD/s3cfgs/msi_ucsd_hbcd_midb_s3.s3cfg
+APPTAINER_APPNAME=
+SHLVL=2
+FS_OVERRIDE=0
+heudiconv=/home/midb-ig/leex6144/containers/heudiconv_march2022.sif
+PATH=/common/software/install/migrated/anaconda/python3-2020.07-mamba/bin:/opt/miniconda-latest/envs/neuro/bin:/opt/miniconda-latest/condabin:/usr/lib/fsl/5.0:/opt/freesurfer-6.0.0-min/bin:/opt/freesurfer-6.0.0-min/fsfast/bin:/opt/freesurfer-6.0.0-min/tktools:/opt/freesurfer-6.0.0-min/mni/bin:/opt/miniconda-latest/bin:/usr/lib/ants:/opt/dcm2niix-v1.0.20190902/bin:/opt/freesurfer-6.0.0-min/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/afni/bin
+APPTAINER_ENVIRONMENT=/.singularity.d/env/91-environment.sh
+MINC_LIB_DIR=/opt/freesurfer-6.0.0-min/mni/lib
+CONDA_DEFAULT_ENV=neuro
+MNI_DATAPATH=/opt/freesurfer-6.0.0-min/mni/data
+FSLOUTPUTTYPE=NIFTI_GZ
+SPMMCRCMD=/opt/spm12-r7219/run_spm12.sh /opt/matlabmcr-2010a/v713 script
+FSLMULTIFILEQUIT=TRUE
+SINGULARITY_BIND=
+OMP_NUM_THREADS=1
+_=/usr/bin/printenv
+Apptainer> exit
+exit
+
+
+mappingproxy({'__module__': 'nipype.interfaces.fsl.preprocess', 
+'__doc__': 'FSL FLIRT wrapper for coregistration\n\n    
+For complete details, see the `FLIRT Documentation.\n    <https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FLIRT>`_\n\n  
+  To print out the command line help, use:\n     
+     fsl.FLIRT().inputs_help()\n\n    Examples\n    --------\n   
+      >>> from nipype.interfaces import fsl\n   
+       >>> from nipype.testing import example_data\n  
+         >>> flt = fsl.FLIRT(bins=640, cost_func=\'mutualinfo\')\n    
+         >>> flt.inputs.in_file = \'structural.nii\'\n  
+           >>> flt.inputs.reference = \'mni.nii\'\n  
+             >>> flt.inputs.output_type = "NIFTI_GZ"\n  
+               >>> flt.cmdline # doctest: +ELLIPSIS\n   
+                \'flirt -in structural.nii -ref mni.nii
+                 -out structural_flirt.nii.gz 
+                 -omat structural_flirt.mat -bins 640 
+                 -searchcost mutualinfo\'\n   
+                 >>> res = flt.run() #doctest: +SKIP\n\n  
+                   ', '_cmd': 'flirt', 
+                   'input_spec': <class 'nipype.interfaces.fsl.preprocess.FLIRTInputSpec'>, 
+                   'output_spec': <class 'nipype.interfaces.fsl.preprocess.FLIRTOutputSpec'>, 
+                   '_log_written': False, 'aggregate_outputs': 
+                   <function FLIRT.aggregate_outputs at 0x7fb31e061550>, 
+                   '_parse_inputs': <function FLIRT._parse_inputs at 0x7fb31e0615e0>})
+>>> 
+
+
+reference=/home/faird/shared/projects/HBCD_MIDB_IG/bibsnet_mancorr/test_nov20_2023/original_derivatives/prebibsnet/sub-261141/ses-V02/averaged/sub-261141_ses-V02_0000.nii.gz
+in_file=/home/faird/shared/projects/HBCD_MIDB_IG/bibsnet_mancorr/test_nov20_2023/original_derivatives/bibsnet/sub-261141/ses-V02/output/sub-261141_ses-V02_optimal_resized.nii.gz
+in_matrix_file=/home/faird/shared/projects/HBCD_MIDB_IG/bibsnet_mancorr/test_nov20_2023/original_derivatives/postbibsnet/sub-261141/ses-V02/preBIBSnet_full_crop_T1w_to_BIBS_template.mat
+out_file=/home/faird/shared/projects/HBCD_MIDB_IG/bibsnet_mancorr/test_nov20_2023/original_derivatives/derivatives/bibsnet/sub-261141/ses-V02/anat/sub-261141_ses-V02_space-T1w_desc-aseg_dseg.nii.gz
+
+singularity shell -B $input:/input_dir -B $output:/output_dir -B $work:/work \
+-B $reference:/reference.nii.gz -B $in_file:/in_file.nii.gz -B $in_matrix_file:/in_matrix_file.mat \
+/home/midb-ig/shared/containers/leex6144/bibsnet-mancorr_1.0.sif
+
+#>>> flt = fsl.FLIRT(interp='nearestneighbour', apply_xfm=True, reference="/reference", in_file="/in_file", in_matrix_file="/in_matrix_file", out_file='/input/derivatives/bibsnet/sub-261141/ses-V02/anat/sub-261141_ses-V02_space-T1w_desc-aseg_dseg.nii.gz')
+flirt -in /in_file.nii.gz -ref /reference.nii.gz -applyxfm -init /in_matrix_file.mat -interp nearestneighbour -out /output_dir/bibsnet/sub-261141/ses-V02/anat/sub-261141_ses-V02_space-T1w_desc-aseg_dseg.nii.gz

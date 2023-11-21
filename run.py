@@ -86,23 +86,31 @@ def main():
 
                 if os.path.exists(native_anat):
                     #apply inverse transform to bibsnet output segmentation to get into native space
-                    flt = fsl.FLIRT(interp='nearestneighbour',
-                                    apply_xfm=True,
-                                    reference=native_anat,
-                                    in_file=aseg,
-                                    in_matrix_file=inv_mat,
-                                    out_file=aseg_deriv)
-                    flt.outputs.no_save_mats=True
-                    flt.run()
+                    command = f'flirt -in {aseg} -ref {native_anat} -applyxfm -init {inv_mat} '
+                    command += f'-interp nearestneighbour -out {aseg_deriv}'
+                    os.system(command)
+
+                    command = f'flirt -in {tmp_brainmask_MNIspace} -ref {native_anat} -applyxfm -init {inv_mat} '
+                    command += f'-interp nearestneighbour -out {brainmask_deriv}'
+                    os.system(command) 
+
+                    #flt = fsl.FLIRT(interp='nearestneighbour',
+                    #                apply_xfm=True,
+                    #                reference=native_anat,
+                    #                in_file=aseg,
+                    #                in_matrix_file=inv_mat,
+                    #                out_file=aseg_deriv)
+                    #flt.outputs.no_save_mats=True
+                    #flt.run()
 
                     #apply inverse transform to brainmask to get into native space
-                    flt = fsl.FLIRT(interp='nearestneighbour',
-                                    apply_xfm=True,
-                                    reference=native_anat,
-                                    in_file=tmp_brainmask_MNIspace,
-                                    in_matrix_file=inv_mat,
-                                    out_file=brainmask_deriv)
-                    flt.run()
+                    #flt = fsl.FLIRT(interp='nearestneighbour',
+                    #                apply_xfm=True,
+                    #                reference=native_anat,
+                    #                in_file=tmp_brainmask_MNIspace,
+                    #                in_matrix_file=inv_mat,
+                    #                out_file=brainmask_deriv)
+                    #flt.run()
             
             os.remove(tmp_brainmask_MNIspace)
 
