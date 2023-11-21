@@ -14,7 +14,6 @@ def main():
 
     input_folder = os.path.abspath(args.input_folder)
     input_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
-    #output_folder = os.path.abspath(args.output_folder)
     output_bibsnet_folder = os.path.join(os.path.abspath(args.output_folder), 'bibsnet')
     original_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
 
@@ -112,13 +111,6 @@ def main():
                     #flt.run()
             
             os.remove(tmp_brainmask_MNIspace)
-
-            # FLIRT saves a separate transformation matrix applied to generate the output file even when an external transform is                  # supplied. These files are not needed, however, so define the automated filepaths created and remove them.
-            tmp_aseg_mat=f'{temp_sub}_{temp_ses}_optimal_resized_flirt.mat'
-            tmp_brainmask_mat=f'{temp_sub}_{temp_ses}_brainmask_MNIspace_flirt.mat'
-            
-            #os.remove(tmp_aseg_mat)
-            #os.remove(tmp_brainmask_mat)
 
             #Copy to the output derivatives path
             shutil.copytree(session_input_derivatives_path, session_output_derivatives_path)
