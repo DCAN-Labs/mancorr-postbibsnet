@@ -20,6 +20,8 @@ def main():
 
     if args.w:
         work_folder = os.path.abspath(args.w)
+        if os.path.exists(work_folder) == False:
+            os.makedirs(work_folder)
     else:
         work_folder = '/tmp'
 
