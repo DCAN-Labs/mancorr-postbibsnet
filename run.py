@@ -16,7 +16,6 @@ def main():
     input_folder = os.path.abspath(args.input_folder)
     input_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
     output_bibsnet_folder = os.path.join(os.path.abspath(args.output_folder), 'bibsnet')
-    original_bibsnet_folder = os.path.join(input_folder, 'derivatives', 'bibsnet')
 
     #Set work directory
     if args.w:
@@ -36,30 +35,33 @@ def main():
             else:
                 participants.append(temp_participant)
     else:
-        os.chdir(input_bibsnet_folder)
+        os.chdir(input_folder)
         participants = glob.glob('sub-*')
 
     for temp_sub in participants:
-        os.chdir(os.path.join(input_folder, 'bibsnet', temp_sub))
+
+        subject_input_bibsnet_folder = os.path.join(input_folder, temp_sub, 'bibsnet', temp_sub)
+        subject_input_bibsnet_derivatives_folder = os.path.join(input_folder, temp_sub, 'derivatives', 'bibsnet')
+        os.chdir(subject_input_bibsnet_folder)
         sessions = glob.glob('ses*')
 
         for temp_ses in sessions:
-            session_input_derivatives_path = os.path.join(input_bibsnet_folder, temp_sub, temp_ses, 'anat')
+            session_input_derivatives_path = os.path.join(subject_input_bibsnet_derivatives_folder, temp_sub, temp_ses, 'anat')
             session_output_derivatives_path_partial = os.path.join(output_bibsnet_folder, temp_sub, temp_ses)
             session_output_derivatives_path = os.path.join(session_output_derivatives_path_partial, 'anat')
             if os.path.exists(session_output_derivatives_path_partial) == False:
                 os.makedirs(session_output_derivatives_path_partial)
 
             #copy dataset_description.json to output derivatives folder if it doesn't exist already
-            dataset_description_json_src=os.path.join(original_bibsnet_folder, 'dataset_description.json')
+            dataset_description_json_src=os.path.join(subject_input_bibsnet_derivatives_folder, 'dataset_description.json')
             dataset_description_json_dest=os.path.join(output_bibsnet_folder, 'dataset_description.json')
             if not os.path.exists(dataset_description_json_dest):
                 shutil.copy(dataset_description_json_src, dataset_description_json_dest)
 
             #derivatives_work_folder=os.path.join(input_folder, f'derivatives/bibsnet/{temp_sub}/{temp_ses}/anat')
-            prebibsnet_work_folder= os.path.join(input_folder, f'prebibsnet/{temp_sub}/{temp_ses}')
-            bibsnet_work_folder= os.path.join(input_folder, f'bibsnet/{temp_sub}/{temp_ses}')
-            postbibsnet_work_folder=os.path.join(input_folder, f'postbibsnet/{temp_sub}/{temp_ses}')
+            prebibsnet_work_folder= os.path.join(input_folder, temp_sub, 'prebibsnet', temp_sub, temp_ses)
+            bibsnet_work_folder= os.path.join(input_folder, temp_sub, 'bibsnet', temp_sub, temp_ses)
+            postbibsnet_work_folder=os.path.join(input_folder, temp_sub, 'postbibsnet', temp_sub, temp_ses)
 
             #specify pathname for intermediate brainmask derived from the segmentation prior to transformation into native space
             tmp_brainmask_MNIspace= os.path.join(work_folder, f'{temp_sub}_{temp_ses}_brainmask_MNIspace.nii.gz')
